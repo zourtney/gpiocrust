@@ -54,6 +54,38 @@ You can set the frequency (Hz) via the `frequency` property. For example:
       soft_led = PWMOutputPin(11, frequency=100)
       solf_led.frequency = 50
 
-**NOTE:** the RPi.GPIO implementation uses duty cycle values from `0` to `100`. To be consistent with `OutputPin`, `PWMOutputPin` uses decimal value `0.0` to `1.0`.
+**NOTE:** the RPi.GPIO implementation uses duty cycle values from `0` to `100`. To be consistent with `OutputPin`, `PWMOutputPin` uses decimal values `0.0` to `1.0`.
 
 For a good overview of how to use the [RPi.GPIO](https://pypi.python.org/pypi/RPi.GPIO) implementation, see [this video](http://youtu.be/uUn0KWwwkq8).
+
+Full example
+------------
+
+    import time
+    from gpiocrust import Header, OutputPin, PWMOutputPin
+
+    with Header() as header:
+      pin11 = OutputPin(11)
+      pin15 = PWMOutputPin(15, frequency=100, value=0)
+  
+      try:
+        while 1:
+          # Going up
+          pin11.value = True
+    
+          for i in range(100):
+            pin15.value = i / 100.0
+            time.sleep(0.01)
+    
+          time.sleep(0.5)
+    
+          # Going down
+          pin11.value = False
+          
+          for i in range(100):
+            pin15.value = (100 - i) / 100.0
+            time.sleep(0.01)
+          
+          time.sleep(0.5)
+      except KeyboardInterrupt:
+        pass
