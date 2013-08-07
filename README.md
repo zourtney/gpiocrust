@@ -8,7 +8,7 @@ A simple object-oriented wrapper around the Raspberry Pi's [RPi.GPIO](https://py
 Usage
 -----
 
-**`Header`**
+**Header**
 
 The `Header` class just wraps the GPIO setup and teardown methods. Most importantly, it ensures that `GPIO.cleanup()` is called. For example:
 
@@ -20,7 +20,7 @@ The `Header` class just wraps the GPIO setup and teardown methods. Most importan
 
     # All cleaned up now.
     
-**`OutputPin`**
+**OutputPin**
 
 The `OutputPin` class controls a single GPIO pin for output. You can set its value to `True` (`1`) or `False` (`0`). That's all there is to it!
 
@@ -35,7 +35,7 @@ The `OutputPin` class controls a single GPIO pin for output. You can set its val
 
     shiny_led = OutputPin(11, value=True)
 
-**`PWMOutputPin`**
+**PWMOutputPin**
 
 The `PWMOutputPin` class controls a single GPIO pin for output, but allows for variable `value`s via software pulse width modulation.
 
@@ -54,7 +54,6 @@ You can set the frequency (Hz) via the `frequency` property. For example:
       soft_led = PWMOutputPin(11, frequency=100)
       solf_led.frequency = 50
 
-*
-**NOTE:** the RPi.GPIO implementation uses duty cycle values from `0` to `100`. To be consistent with `OutputPin`, `PWMOutputPin` uses decimal value `0.0` to `1.0`.*
+**NOTE:** the RPi.GPIO implementation uses duty cycle values from `0` to `100`. To be consistent with `OutputPin`, `PWMOutputPin` uses decimal value `0.0` to `1.0`.
 
 For a good overview of how to use the [RPi.GPIO](https://pypi.python.org/pypi/RPi.GPIO) implementation, see [this video](http://youtu.be/uUn0KWwwkq8).
