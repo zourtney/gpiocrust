@@ -85,3 +85,9 @@ class InputPin(object):
   @property
   def value(self):
     return GPIO.input(self._pin)
+  
+  def change(self, fn):
+    """Allow for `@change` decorator"""
+    def wrapped(pin):
+      fn(self.value)
+    GPIO.add_event_callback(self._pin, wrapped)
