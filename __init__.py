@@ -31,7 +31,7 @@ class OutputPin(object):
     return GPIO.input(self._pin)
   @value.setter
   def value(self, val):
-    GPIO.output(self._pin, val)
+    GPIO.output(self._pin, int(val))
 
 
 
@@ -57,7 +57,7 @@ class PWMOutputPin(OutputPin):
       return self._frequency
   @frequency.setter
   def frequency(self, value):
-      self._frequency = value   # No GetFrequency API provided, so store it
+      self._frequency = float(value)   # No GetFrequency API provided, so store it
       self._pulse.ChangeFrequency(value)
 
   @property
@@ -65,5 +65,5 @@ class PWMOutputPin(OutputPin):
     return self._value
   @value.setter
   def value(self, value):
-    self._value = value        # No GetDutyCycle API provided, so store it too
+    self._value = float(value)         # No GetDutyCycle API provided, so store it too
     self._pulse.ChangeDutyCycle(self._value * 100.0)
