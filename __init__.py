@@ -67,3 +67,15 @@ class PWMOutputPin(OutputPin):
   def value(self, value):
     self._value = float(value)         # No GetDutyCycle API provided, so store it too
     self._pulse.ChangeDutyCycle(self._value * 100.0)
+
+
+
+class InputPin(object):
+  """A single GPIO pin set for input"""
+  def __init__(self, pin, value=0):
+    self._pin = int(pin)
+    GPIO.setup(self._pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN if value == 0 else GPIO.PUD_UP)
+
+  @property
+  def value(self):
+    return GPIO.input(self._pin)
