@@ -58,8 +58,31 @@ You can set the frequency (Hz) via the `frequency` property. For example:
 
 For a good overview of how to use the [RPi.GPIO](https://pypi.python.org/pypi/RPi.GPIO) implementation, see [this video](http://youtu.be/uUn0KWwwkq8).
 
-Full example
-------------
+**InputPin**
+
+The `InputPin` class controls a single GPIO pin for input. You can watch for edge events using a `callback` argument or via the `@change` decorator. For now, `InputPin` only supports watching `GPIO.BOTH` (rising and falling) events.
+
+    from gpiocrust import Header, InputPin
+
+    def alert_president(value):
+      pass
+
+    with Header() as header:
+      the_red_button = InputPin(11, callback=alert_president)
+
+Using the `@change` decorator is recommended.
+
+    from gpiocrust import Header, InputPin
+
+    with Header() as header:
+      the_red_button = InputPin(11, value=0)
+
+      @the_red_button.change
+      def take_action(value):
+        pass
+
+OutputPin example
+-----------------
 
     import time
     from gpiocrust import Header, OutputPin, PWMOutputPin
