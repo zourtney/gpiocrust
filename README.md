@@ -81,6 +81,12 @@ Using the `@change` decorator is recommended.
       def take_action(value):
         pass
 
+Mock API
+--------
+Mock classes are included that mimick the native GPIO functionality. The library falls back to mock objects when the `RPi.GPIO` package cannot be loaded. This allows one to code the general I/O flow of an application in development environments where running code on a physical Raspberry Pi is inconvenient or impossible.
+
+Fallback is automatic, so your import statements will look just as before.
+
 OutputPin example
 -----------------
 
