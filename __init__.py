@@ -8,7 +8,6 @@ try:
   import RPi.GPIO
   from raspberry_pi import *
 except:
-
   print '--------------------------------------------------------------------'
   print ' WARNING: RPi.GPIO library not found. Falling back to mock objects. '
   print '--------------------------------------------------------------------'
