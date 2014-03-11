@@ -14,7 +14,7 @@ The `Header` class just wraps the GPIO setup and teardown methods. Most importan
 
     from gpiocrust import Header
 
-    with Header() as header
+    with Header() as header:
       # Application logic goes here
       pass
 
