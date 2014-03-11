@@ -11,4 +11,4 @@ except:
   print '--------------------------------------------------------------------'
   print ' WARNING: RPi.GPIO library not found. Falling back to mock objects. '
   print '--------------------------------------------------------------------'
-  from mock import *
+  from gpio_mock import *

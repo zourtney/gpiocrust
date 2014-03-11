@@ -7,7 +7,7 @@ class Header(object):
   def __del__(self):
     GPIO.cleanup()
   def __enter__(self):
-    pass
+    return self
   def __exit__(self, type, value, traceback):
     pass
 
