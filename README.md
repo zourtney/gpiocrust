@@ -1,6 +1,8 @@
 gpiocrust
 =========
 
+[![Build Status](https://travis-ci.org/zourtney/gpiocrust.png?branch=dev)](https://travis-ci.org/zourtney/gpiocrust)
+
 A simple object-oriented wrapper around the Raspberry Pi's [RPi.GPIO](https://pypi.python.org/pypi/RPi.GPIO) library. An encrusting, if you will.
 
 **This is a work in progress.** The goal is a consise, [pythonic](http://stackoverflow.com/a/58992/311207) API for the Raspberry Pi's general purpose I/O pins. I welcome all suggestions, contributions, and half-hearted insults.
