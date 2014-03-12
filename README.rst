@@ -1,7 +1,7 @@
 gpiocrust
 =========
 
-.. image:: https://travis-ci.org/zourtney/gpiocrust.png?branch=dev   :target: https://travis-ci.org/zourtney/gpiocrust
+.. image:: https://travis-ci.org/zourtney/gpiocrust.png?branch=dev
 
 A concise, pythonic wrapper around the Raspberry Pi’s `RPi.GPIO`_
 library. An encrusting, if you will.
