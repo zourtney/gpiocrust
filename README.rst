@@ -18,7 +18,7 @@ Installation with pip is a snap:
 
     pip install gpiocrust
 
-Now open up a Python file and start coding! Here's a bare-bones example that will turn GPIO pin 15 on.
+Now open up a Python file and start coding! Here's a bare-bones example that will turn GPIO pin 15 on:
 
 .. code:: python
 
