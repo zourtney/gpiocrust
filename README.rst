@@ -10,6 +10,17 @@ library. An encrusting, if you will.
 In a nutshell
 -------------
 
+Installation with pip is a snap:
+
+.. code:: bash
+
+    pip install gpiocrust
+
+There is a soft dependency on `RPi.GPIO`_. See the "Mock API" section for more details.
+
+In your Python file, ``import`` the library, open the pin ``Header``, and
+create ``OutputPin``s and/or ``InputPin``s. Happy coding!
+
 .. code:: python
 
     from gpiocrust import Header, OutputPin
@@ -127,7 +138,8 @@ Mock classes are included that mimick the native GPIO functionality. The
 library falls back to mock objects when the ``RPi.GPIO`` package cannot
 be loaded. This allows one to code the general I/O flow of an
 application in development environments where running code on a physical
-Raspberry Pi is inconvenient or impossible.
+Raspberry Pi is inconvenient or impossible (i.e, the computer you're 
+reading this on).
 
 Fallback is automatic, so your import statements will look just as
 before.
