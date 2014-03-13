@@ -91,7 +91,7 @@ example:
 
     with Header() as header:
       soft_led = PWMOutputPin(11, frequency=100)
-      solf_led.frequency = 50
+      soft_led.frequency = 50
 
 **NOTE:** the RPi.GPIO implementation uses duty cycle values from ``0``
 to ``100``. To be consistent with ``OutputPin``, ``PWMOutputPin`` uses
