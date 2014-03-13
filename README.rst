@@ -7,7 +7,7 @@ gpiocrust
 A concise, pythonic wrapper around the Raspberry Pi’s `RPi.GPIO`_
 library. An encrusting, if you will.
 
-With (almost silent) fallback to mock objects, you can prototype pin I/O locally on your favorite computer, even when your Pi is on the other side of town. See "Mock API" for more details.
+With (almost silent) fallback to mock objects, you can prototype pin I/O locally on your favorite computer, even when your Pi is on the other side of town. See *Mock API* for more details.
 
 In a nutshell
 -------------
@@ -25,7 +25,7 @@ Now open up a Python file and start coding! Here's a bare-bones example that wil
     from gpiocrust import Header, OutputPin
 
     with Header() as header:
-      pin = OutputPin(pin=15, value=0)
+      pin = OutputPin(15, value=0)
       pin.value = 1
 
 Classes
