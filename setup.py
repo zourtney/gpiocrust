@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(name='gpiocrust',
       packages=['gpiocrust'],
-      version='0.9.0',
+      version='0.9.1',
       description='A pythonic wrapper around RPi.GPIO',
       author='zourtney',
       author_email='zourtney@gmail.com',

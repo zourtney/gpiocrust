@@ -16,10 +16,9 @@ Installation with pip is a snap:
 
     pip install gpiocrust
 
-There is a soft dependency on `RPi.GPIO`_. See the "Mock API" section for more details.
+There's a soft dependency on `RPi.GPIO`_. See the "Mock API" section for more details.
 
-In your Python file, ``import`` the library, open the pin ``Header``, and
-create ``OutputPin``s and/or ``InputPin``s. Happy coding!
+Open up your Python file and start coding! Here's a bare-bones example:
 
 .. code:: python
 
