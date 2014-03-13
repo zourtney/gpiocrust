@@ -7,6 +7,8 @@ gpiocrust
 A concise, pythonic wrapper around the Raspberry Pi’s `RPi.GPIO`_
 library. An encrusting, if you will.
 
+With (almost silent) fallback to mock objects, you can prototype pin I/O locally on your favorite computer, even when your Pi is on the other side of town. See "Mock API" for more details.
+
 In a nutshell
 -------------
 
@@ -16,9 +18,7 @@ Installation with pip is a snap:
 
     pip install gpiocrust
 
-There's a soft dependency on `RPi.GPIO`_. See the "Mock API" section for more details.
-
-Open up your Python file and start coding! Here's a bare-bones example:
+Now open up a Python file and start coding! Here's a bare-bones example that will turn GPIO pin 15 on.
 
 .. code:: python
 
