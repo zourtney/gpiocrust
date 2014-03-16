@@ -1,7 +1,7 @@
 gpiocrust
 =========
 
-.. image:: http://travis-ci.org/zourtney/gpiocrust.png?branch=dev
+.. image:: http://travis-ci.org/zourtney/gpiocrust.png?branch=master
          :target: http://travis-ci.org/zourtney/gpiocrust
 
 A concise, pythonic wrapper around the Raspberry Pi’s `RPi.GPIO`_
