@@ -7,18 +7,20 @@ gpiocrust
 A concise, pythonic wrapper around the Raspberry Pi’s `RPi.GPIO`_
 library. An encrusting, if you will.
 
-With (almost silent) fallback to mock objects, you can prototype pin I/O locally on your favorite computer, even when your Pi is on the other side of town. See *Mock API* for more details.
+With (almost silent) fallback to mock objects, you can prototype pin I/O locally on your favorite computer, even when your Pi is on the other side of town (see *Mock API* for more details).
+
+*gpiocrust* is fully compatible with Python 2 and Python 3.
 
 In a nutshell
 -------------
 
-Installation with pip is a snap:
+Download from PyPI with ``easy_install`` or ``pip``.
 
 .. code:: bash
 
     pip install gpiocrust
 
-Coding pin I/O couldn't be easier -- open up a Python file and start coding! Here's a bare-bones example that will turn GPIO pin 15 on:
+In a *.py file, import the library and start setting pin values. It's easy! Here's a bare-bones example that will turn on GPIO pin 15:
 
 .. code:: python
 
@@ -28,8 +30,16 @@ Coding pin I/O couldn't be easier -- open up a Python file and start coding! Her
       pin = OutputPin(15, value=0)
       pin.value = 1
 
-Classes
--------
+API
+---
+
+*gpiocrust* provides four classes to help give GPIO pin manipulation a more object-oriented feel. They are:
+
+- ``Header``
+- ``OutputPin``
+- ``PWMOutputPin``
+- ``InputPin``
+
 
 **Header**
 
