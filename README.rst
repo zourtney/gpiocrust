@@ -20,7 +20,7 @@ Download from PyPI with ``easy_install`` or ``pip``.
 
     pip install gpiocrust
 
-In a *.py file, import the library and start setting pin values. It's easy! Here's a bare-bones example that will turn on GPIO pin 15:
+In a *.py* file, import the library and start setting pin values. It's easy! Here's a bare-bones example that will turn on GPIO pin 15:
 
 .. code:: python
 
