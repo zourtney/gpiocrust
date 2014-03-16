@@ -1,7 +1,6 @@
 """
-Object oriented wrapper around RPi.GPIO. A work in progress.
-
-(zourtney, August 2013)
+Object oriented wrapper around RPi.GPIO. Falls back to mock objects if RPi.GPIO
+is not found.
 """
 
 try:

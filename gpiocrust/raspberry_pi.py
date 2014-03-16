@@ -1,3 +1,5 @@
+"""An object-oriented wrapper around RPi.GPIO"""
+
 import RPi.GPIO as GPIO
 
 class Header(object):

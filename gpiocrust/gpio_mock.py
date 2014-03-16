@@ -1,8 +1,6 @@
 """
 A mock API for when RPi.GPIO is not available. Useful for building out
 applications while not on the Pi itself.
-
-(zourtney, August 2013)
 """
 
 class Header(object):
