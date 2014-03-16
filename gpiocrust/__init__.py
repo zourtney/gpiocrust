@@ -6,9 +6,9 @@ Object oriented wrapper around RPi.GPIO. A work in progress.
 
 try:
   import RPi.GPIO
-  from raspberry_pi import *
+  from .raspberry_pi import *
 except:
-  print '--------------------------------------------------------------------'
-  print ' WARNING: RPi.GPIO library not found. Falling back to mock objects. '
-  print '--------------------------------------------------------------------'
-  from gpio_mock import *
+  print('--------------------------------------------------------------------')
+  print(' WARNING: RPi.GPIO library not found. Falling back to mock objects. ')
+  print('--------------------------------------------------------------------')
+  from .gpio_mock import *
