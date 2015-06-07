@@ -67,6 +67,7 @@ class InputPin(object):
         self._pin = int(pin)
         self._value = value
         self._callback = callback
+
         # TODO: bouncetime  -->  self._bouncetime = bouncetime
 
     def __del__(self):
@@ -85,3 +86,9 @@ class InputPin(object):
         # TODO: bouncetime
         if edge == self._edge or self._edge == edges.BOTH:
             self._callback(value)
+
+    def wait_for_edge(self):
+        # TODO: Figure out a way to implement this
+        # currently can't think of a way to do this without threads,
+        # which are probably best avoided if possible.
+        pass
