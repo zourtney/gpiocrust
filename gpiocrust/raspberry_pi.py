@@ -110,4 +110,8 @@ class InputPin(object):
         GPIO.add_event_callback(self._pin, wrapped, _edge_to_rpi_edge[edge])
 
     def wait_for_edge(self):
+        """
+        This will remove remove any callbacks you might have specified
+        """
+        GPIO.remove_event_detect(self._pin)
         GPIO.wait_for_edge(self._pin, self._edge)
