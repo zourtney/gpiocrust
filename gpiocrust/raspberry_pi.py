@@ -86,7 +86,7 @@ class InputPin(object):
     def __init__(self, pin, value=0, callback=None, edge=edges.BOTH,
                  bouncetime=0):
         self._pin = int(pin)
-        self._edge = _edge_to_rpi_[edge]
+        self._edge = _edge_to_rpi_edge[edge]
         GPIO.setup(self._pin, GPIO.IN,
                    pull_up_down=GPIO.PUD_DOWN if value == 0 else GPIO.PUD_UP)
         GPIO.add_event_detect(self._pin, self._edge,
