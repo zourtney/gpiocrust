@@ -13,6 +13,7 @@ except RuntimeError:
     ' WARNING: RPi.GPIO can only be run on the RPi. Falling back to mock objects.')
     print(
     '----------------------------------------------------------------------------')
+    from .gpio_mock import *
 except ImportError:
     print('-------------------------------------------------------------------')
     print(' WARNING: RPi.GPIO library not found. Falling back to mock objects.')
