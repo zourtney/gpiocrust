@@ -1,7 +1,7 @@
 """An object-oriented wrapper around RPi.GPIO"""
 
 import RPi.GPIO as GPIO
-import edges
+import gpiocrust.edges as edges
 
 _edge_to_rpi_edge = {
     edges.RISING: GPIO.RISING,

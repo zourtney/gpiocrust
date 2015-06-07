@@ -2,7 +2,7 @@
 A mock API for when RPi.GPIO is not available. Useful for building out
 applications while not on the Pi itself.
 """
-import edges
+import gpiocrust.edges as edges
 
 
 class Header(object):
