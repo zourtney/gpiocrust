@@ -1,6 +1,13 @@
 """An object-oriented wrapper around RPi.GPIO"""
 
 import RPi.GPIO as GPIO
+import edges
+
+_edge_to_rpi_edge = {
+    edges.RISING: GPIO.RISING,
+    edges.FALLING: GPIO.FALLING,
+    edges.BOTH: GPIO.BOTH,
+}
 
 class Header(object):
     """Controls initializing and cleaning up GPIO header."""
@@ -76,11 +83,13 @@ class PWMOutputPin(OutputPin):
 class InputPin(object):
     """A single GPIO pin set for input"""
 
-    def __init__(self, pin, value=0, callback=None, bouncetime=0):
+    def __init__(self, pin, value=0, callback=None, edge=edges.BOTH,
+                 bouncetime=0):
         self._pin = int(pin)
         GPIO.setup(self._pin, GPIO.IN,
                    pull_up_down=GPIO.PUD_DOWN if value == 0 else GPIO.PUD_UP)
-        GPIO.add_event_detect(self._pin, GPIO.BOTH, bouncetime=bouncetime)
+        GPIO.add_event_detect(self._pin, _edge_to_rpi_edge[edge],
+                              bouncetime=bouncetime)
         if callback is not None:
             GPIO.add_event_callback(self._pin, callback)
 
@@ -91,10 +100,10 @@ class InputPin(object):
     def value(self):
         return GPIO.input(self._pin)
 
-    def change(self, fn):
+    def change(self, fn, edge=edges.BOTH):
         """Allow for `@change` decorator"""
 
         def wrapped(pin):
             fn(self.value)
 
-        GPIO.add_event_callback(self._pin, wrapped)
+        GPIO.add_event_callback(self._pin, wrapped, _edge_to_rpi_edge[edge])
