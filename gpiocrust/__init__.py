@@ -4,10 +4,18 @@ is not found.
 """
 
 try:
-  import RPi.GPIO
-  from .raspberry_pi import *
-except:
-  print('--------------------------------------------------------------------')
-  print(' WARNING: RPi.GPIO library not found. Falling back to mock objects. ')
-  print('--------------------------------------------------------------------')
-  from .gpio_mock import *
+    import RPi.GPIO
+    from .raspberry_pi import *
+except RuntimeError:
+    print(
+    '----------------------------------------------------------------------------')
+    print(
+    ' WARNING: RPi.GPIO can only be run on the RPi. Falling back to mock objects.')
+    print(
+    '----------------------------------------------------------------------------')
+    from .gpio_mock import *
+except ImportError:
+    print('-------------------------------------------------------------------')
+    print(' WARNING: RPi.GPIO library not found. Falling back to mock objects.')
+    print('-------------------------------------------------------------------')
+    from .gpio_mock import *
