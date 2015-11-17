@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Gpiocrust by zourtney</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Gpiocrust</h1>
+        <h2>Simple object-oriented wrapper around RPi.GPIO</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/zourtney/gpiocrust/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/zourtney/gpiocrust/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/zourtney/gpiocrust" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="gpiocrust" class="anchor" href="#gpiocrust" aria-hidden="true"><span class="octicon octicon-link"></span></a>gpiocrust</h1>
+
+<p>A concise, pythonic wrapper around the Raspberry Pi’s <code>RPi.GPIO</code>_
+library. An encrusting, if you will.</p>
+
+<p>With (almost silent) fallback to mock objects, you can prototype pin I/O locally on your favorite computer, even when your Pi is on the other side of town (see <em>Mock API</em> for more details).</p>
+
+<p><em>gpiocrust</em> is fully compatible with Python 2 and Python 3.</p>
+
+<h2>
+<a id="in-a-nutshell" class="anchor" href="#in-a-nutshell" aria-hidden="true"><span class="octicon octicon-link"></span></a>In a nutshell</h2>
+
+<p>Download from PyPI with <code>easy_install</code> or <code>pip</code>.</p>
+
+<div class="highlight highlight-source-shell"><pre>pip install gpiocrust</pre></div>
+
+<p>In a <em>.py</em> file, import the library and start setting pin values. It's easy! Here's a bare-bones example that will turn on GPIO pin 15:</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header, OutputPin
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    pin <span class="pl-k">=</span> OutputPin(<span class="pl-c1">15</span>, <span class="pl-smi">value</span><span class="pl-k">=</span><span class="pl-c1">0</span>)
+    pin.value <span class="pl-k">=</span> <span class="pl-c1">1</span></pre></div>
+
+<h2>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h2>
+
+<p><em>gpiocrust</em> provides four classes to help give GPIO pin manipulation a more object-oriented feel. They are:</p>
+
+<ul>
+<li><code>Header</code></li>
+<li><code>OutputPin</code></li>
+<li><code>PWMOutputPin</code></li>
+<li><code>InputPin</code></li>
+</ul>
+
+<p><strong>Header</strong></p>
+
+<p>The <code>Header</code> class just wraps the GPIO setup and teardown methods.
+Most importantly, it ensures that <code>GPIO.cleanup()</code> is called. For
+example:</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    <span class="pl-c"># Application logic goes here</span>
+    <span class="pl-k">pass</span>
+
+<span class="pl-c"># All cleaned up now.</span></pre></div>
+
+<p><strong>OutputPin</strong></p>
+
+<p>The <code>OutputPin</code> class controls a single GPIO pin for output. Set its
+value to <code>True</code> (<code>1</code>) or <code>False</code> (<code>0</code>). That’s all there is to
+it!</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header, OutputPin
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    shiny_led <span class="pl-k">=</span> OutputPin(<span class="pl-c1">11</span>)
+    shiny_led.value <span class="pl-k">=</span> <span class="pl-c1">True</span>
+    ...</pre></div>
+
+<p><code>value</code> defaults to <code>False</code>, but can be set with a keyword argument.</p>
+
+<div class="highlight highlight-source-python"><pre>shiny_led <span class="pl-k">=</span> OutputPin(<span class="pl-c1">11</span>, <span class="pl-smi">value</span><span class="pl-k">=</span><span class="pl-c1">True</span>)</pre></div>
+
+<p><strong>PWMOutputPin</strong></p>
+
+<p>The <code>PWMOutputPin</code> class controls a single GPIO pin for output, but
+allows for variable <code>value</code>s via software pulse width modulation.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header, PWMOutputPin
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    soft_led <span class="pl-k">=</span> PWMOutputPin(<span class="pl-c1">11</span>)
+    soft_led.value <span class="pl-k">=</span> <span class="pl-c1">0.25</span>
+    ...</pre></div>
+
+<p>You can set the frequency (Hz) via the <code>frequency</code> property. For
+example:</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header, PWMOutputPin
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    soft_led <span class="pl-k">=</span> PWMOutputPin(<span class="pl-c1">11</span>, <span class="pl-smi">frequency</span><span class="pl-k">=</span><span class="pl-c1">100</span>)
+    soft_led.frequency <span class="pl-k">=</span> <span class="pl-c1">50</span></pre></div>
+
+<p><strong>NOTE:</strong> the RPi.GPIO implementation uses duty cycle values from <code>0</code>
+to <code>100</code>. To be consistent with <code>OutputPin</code>, <code>PWMOutputPin</code> uses
+decimal values <code>0.0</code> to <code>1.0</code>.</p>
+
+<p><strong>InputPin</strong></p>
+
+<p>The <code>InputPin</code> class controls a single GPIO pin for input. You can
+watch for edge events using a <code>callback</code> argument or via the
+<code>@change</code> decorator. For now, <code>InputPin</code> only supports watching
+<code>GPIO.BOTH</code> (rising <em>and</em> falling) events.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header, InputPin
+
+<span class="pl-k">def</span> <span class="pl-en">alert_president</span>(<span class="pl-smi">value</span>):
+    <span class="pl-k">pass</span>
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    the_red_button <span class="pl-k">=</span> InputPin(<span class="pl-c1">11</span>, <span class="pl-smi">callback</span><span class="pl-k">=</span>alert_president)</pre></div>
+
+<p>It’s even cleaner with the <code>@change</code> decorator.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header, InputPin
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    the_red_button <span class="pl-k">=</span> InputPin(<span class="pl-c1">11</span>, <span class="pl-smi">value</span><span class="pl-k">=</span><span class="pl-c1">0</span>)
+
+    <span class="pl-en">@the_red_button.change</span>
+    <span class="pl-k">def</span> <span class="pl-en">alert_president</span>(<span class="pl-smi">value</span>):
+        <span class="pl-k">pass</span></pre></div>
+
+<h2>
+<a id="mock-api" class="anchor" href="#mock-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mock API</h2>
+
+<p>Mock classes are included that mimic the native GPIO functionality. The
+library falls back to mock objects when the <code>RPi.GPIO</code> package cannot
+be loaded. This allows one to code the general I/O flow of an
+application in development environments where running code on a physical
+Raspberry Pi is inconvenient or impossible (i.e, the computer you're 
+reading this on).</p>
+
+<p>Fallback is automatic, so your import statements will look just as
+before.</p>
+
+<h2>
+<a id="outputpin-example" class="anchor" href="#outputpin-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>OutputPin example</h2>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> time
+<span class="pl-k">from</span> gpiocrust <span class="pl-k">import</span> Header, OutputPin, PWMOutputPin
+
+<span class="pl-k">with</span> Header() <span class="pl-k">as</span> header:
+    pin11 <span class="pl-k">=</span> OutputPin(<span class="pl-c1">11</span>)
+    pin15 <span class="pl-k">=</span> PWMOutputPin(<span class="pl-c1">15</span>, <span class="pl-smi">frequency</span><span class="pl-k">=</span><span class="pl-c1">100</span>, <span class="pl-smi">value</span><span class="pl-k">=</span><span class="pl-c1">0</span>)
+
+    <span class="pl-k">try</span>:
+        <span class="pl-k">while</span> <span class="pl-c1">1</span>:
+            <span class="pl-c"># Going up</span>
+            pin11.value <span class="pl-k">=</span> <span class="pl-c1">True</span>
+
+          <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">100</span>):
+              pin15.value <span class="pl-k">=</span> i <span class="pl-k">/</span> <span class="pl-c1">100.0</span>
+              time.sleep(<span class="pl-c1">0.01</span>)
+
+          time.sleep(<span class="pl-c1">0.5</span>)
+
+          <span class="pl-c"># Going down</span>
+          pin11.value <span class="pl-k">=</span> <span class="pl-c1">False</span>
+
+          <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">100</span>):
+              pin15.value <span class="pl-k">=</span> (<span class="pl-c1">100</span> <span class="pl-k">-</span> i) <span class="pl-k">/</span> <span class="pl-c1">100.0</span>
+              time.sleep(<span class="pl-c1">0.01</span>)
+
+          time.sleep(<span class="pl-c1">0.5</span>)
+      <span class="pl-k">except</span> <span class="pl-c1">KeyboardInterrupt</span>:
+          <span class="pl-k">pass</span></pre></div>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-70233462-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
