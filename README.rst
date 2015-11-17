@@ -136,9 +136,9 @@ It’s even cleaner with the ``@change`` decorator.
     with Header() as header:
         the_red_button = InputPin(11, value=0)
 
-      @the_red_button.change
-      def alert_president(value):
-          pass
+        @the_red_button.change
+        def alert_president(value):
+            pass
 
 Mock API
 --------
@@ -167,23 +167,23 @@ OutputPin example
   
         try:
             while 1:
-              # Going up
-              pin11.value = True
-    
-              for i in range(100):
-                  pin15.value = i / 100.0
-                  time.sleep(0.01)
-    
-              time.sleep(0.5)
-    
-              # Going down
-              pin11.value = False
-              
-              for i in range(100):
-                  pin15.value = (100 - i) / 100.0
-                  time.sleep(0.01)
-              
-              time.sleep(0.5)
+                # Going up
+                pin11.value = True
+
+                for i in range(100):
+                    pin15.value = i / 100.0
+                    time.sleep(0.01)
+
+                time.sleep(0.5)
+
+                # Going down
+                pin11.value = False
+
+                for i in range(100):
+                    pin15.value = (100 - i) / 100.0
+                    time.sleep(0.01)
+                
+                time.sleep(0.5)
         except KeyboardInterrupt:
             pass
 
