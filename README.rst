@@ -143,7 +143,7 @@ It’s even cleaner with the ``@change`` decorator.
 Mock API
 --------
 
-Mock classes are included that mimick the native GPIO functionality. The
+Mock classes are included that mimic the native GPIO functionality. The
 library falls back to mock objects when the ``RPi.GPIO`` package cannot
 be loaded. This allows one to code the general I/O flow of an
 application in development environments where running code on a physical
