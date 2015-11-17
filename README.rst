@@ -27,8 +27,8 @@ In a *.py file, import the library and start setting pin values. It's easy! Here
     from gpiocrust import Header, OutputPin
 
     with Header() as header:
-      pin = OutputPin(15, value=0)
-      pin.value = 1
+        pin = OutputPin(15, value=0)
+        pin.value = 1
 
 API
 ---
@@ -52,8 +52,8 @@ example:
     from gpiocrust import Header
 
     with Header() as header:
-      # Application logic goes here
-      pass
+        # Application logic goes here
+        pass
 
     # All cleaned up now.
 
@@ -68,9 +68,9 @@ it!
     from gpiocrust import Header, OutputPin
 
     with Header() as header:
-      shiny_led = OutputPin(11)
-      shiny_led.value = True
-      ...
+        shiny_led = OutputPin(11)
+        shiny_led.value = True
+        ...
 
 ``value`` defaults to ``False``, but can be set with a keyword argument.
 
@@ -88,9 +88,9 @@ allows for variable ``value``\ s via software pulse width modulation.
     from gpiocrust import Header, PWMOutputPin
 
     with Header() as header:
-      soft_led = PWMOutputPin(11)
-      soft_led.value = 0.25
-      ...
+        soft_led = PWMOutputPin(11)
+        soft_led.value = 0.25
+        ...
 
 You can set the frequency (Hz) via the ``frequency`` property. For
 example:
@@ -100,8 +100,8 @@ example:
     from gpiocrust import Header, PWMOutputPin
 
     with Header() as header:
-      soft_led = PWMOutputPin(11, frequency=100)
-      soft_led.frequency = 50
+        soft_led = PWMOutputPin(11, frequency=100)
+        soft_led.frequency = 50
 
 **NOTE:** the RPi.GPIO implementation uses duty cycle values from ``0``
 to ``100``. To be consistent with ``OutputPin``, ``PWMOutputPin`` uses
@@ -122,10 +122,10 @@ watch for edge events using a ``callback`` argument or via the
     from gpiocrust import Header, InputPin
 
     def alert_president(value):
-      pass
+        pass
 
     with Header() as header:
-      the_red_button = InputPin(11, callback=alert_president)
+        the_red_button = InputPin(11, callback=alert_president)
 
 It’s even cleaner with the ``@change`` decorator.
 
@@ -134,11 +134,11 @@ It’s even cleaner with the ``@change`` decorator.
     from gpiocrust import Header, InputPin
 
     with Header() as header:
-      the_red_button = InputPin(11, value=0)
+        the_red_button = InputPin(11, value=0)
 
       @the_red_button.change
       def alert_president(value):
-        pass
+          pass
 
 Mock API
 --------
@@ -162,30 +162,30 @@ OutputPin example
     from gpiocrust import Header, OutputPin, PWMOutputPin
 
     with Header() as header:
-      pin11 = OutputPin(11)
-      pin15 = PWMOutputPin(15, frequency=100, value=0)
-
-      try:
-        while 1:
-          # Going up
-          pin11.value = True
-
-          for i in range(100):
-            pin15.value = i / 100.0
-            time.sleep(0.01)
-
-          time.sleep(0.5)
-
-          # Going down
-          pin11.value = False
-          
-          for i in range(100):
-            pin15.value = (100 - i) / 100.0
-            time.sleep(0.01)
-          
-          time.sleep(0.5)
-      except KeyboardInterrupt:
-        pass
+        pin11 = OutputPin(11)
+        pin15 = PWMOutputPin(15, frequency=100, value=0)
+  
+        try:
+            while 1:
+              # Going up
+              pin11.value = True
+    
+              for i in range(100):
+                  pin15.value = i / 100.0
+                  time.sleep(0.01)
+    
+              time.sleep(0.5)
+    
+              # Going down
+              pin11.value = False
+              
+              for i in range(100):
+                  pin15.value = (100 - i) / 100.0
+                  time.sleep(0.01)
+              
+              time.sleep(0.5)
+        except KeyboardInterrupt:
+            pass
 
 
 .. _RPi.GPIO: https://pypi.python.org/pypi/RPi.GPIO
