@@ -2,18 +2,24 @@
 
 import RPi.GPIO as GPIO
 import gpiocrust.edges as edges
+import gpiocrust.PinMode as PinMode
 
 _edge_to_rpi_edge = {
     edges.RISING: GPIO.RISING,
     edges.FALLING: GPIO.FALLING,
     edges.BOTH: GPIO.BOTH,
+}s
+
+_pinmode_to_rpi_mode = {
+    PinMode.BCM: GPIO.BCM,
+    PinMode.BOARD: GPIO.BOARD
 }
 
 class Header(object):
     """Controls initializing and cleaning up GPIO header."""
 
-    def __init__(self):
-        GPIO.setmode(GPIO.BOARD)
+    def __init__(self, mode=PinMode.BOARD):
+        GPIO.setmode(_pinmode_to_rpi_mode[mode])
 
     def __del__(self):
         GPIO.cleanup()

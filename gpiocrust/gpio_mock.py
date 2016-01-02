@@ -6,7 +6,7 @@ import gpiocrust.edges as edges
 
 
 class Header(object):
-    def __init__(self):
+    def __init__(self, mode=PinMode.BOARD):
         pass
 
     def __del__(self):
