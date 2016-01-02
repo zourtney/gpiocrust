@@ -19,3 +19,5 @@ except ImportError:
     print(' WARNING: RPi.GPIO library not found. Falling back to mock objects.')
     print('-------------------------------------------------------------------')
     from .gpio_mock import *
+
+from .pin_mode import *
