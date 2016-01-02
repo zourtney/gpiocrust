@@ -3,7 +3,7 @@ A mock API for when RPi.GPIO is not available. Useful for building out
 applications while not on the Pi itself.
 """
 import gpiocrust.edges as edges
-
+import gpiocrust.PinMode as PinMode
 
 class Header(object):
     def __init__(self, mode=PinMode.BOARD):
