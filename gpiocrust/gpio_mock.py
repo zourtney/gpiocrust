@@ -84,7 +84,7 @@ class InputPin(object):
 
     def trigger(self, value, edge=edges.BOTH):
         # TODO: bouncetime
-        if edge == self._edge or self._edge == edges.BOTH:
+        if edge == self._edge or edge == edges.BOTH:
             self._callback(value)
 
     def wait_for_edge(self):
