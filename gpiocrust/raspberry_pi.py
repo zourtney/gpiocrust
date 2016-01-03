@@ -21,14 +21,11 @@ class Header(object):
     def __init__(self, mode=PinMode.BOARD):
         GPIO.setmode(_pinmode_to_rpi_mode[mode])
 
-    def __del__(self):
-        GPIO.cleanup()
-
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
-        pass
+        GPIO.cleanup()
 
 
 class OutputPin(object):
