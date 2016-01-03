@@ -27,7 +27,7 @@ class Header(object):
 
     def __exit__(self, type, value, traceback):
         GPIO.cleanup()
-        for pin : self._pinsForCleanup:
+        for pin in self._pinsForCleanup:
             pin.cleanup()
     
     def registerPinForCleanup(self, pin):
