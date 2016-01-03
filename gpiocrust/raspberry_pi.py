@@ -8,7 +8,7 @@ _edge_to_rpi_edge = {
     edges.RISING: GPIO.RISING,
     edges.FALLING: GPIO.FALLING,
     edges.BOTH: GPIO.BOTH,
-}s
+}
 
 _pinmode_to_rpi_mode = {
     PinMode.BCM: GPIO.BCM,
