@@ -2,7 +2,7 @@
 
 import RPi.GPIO as GPIO
 import gpiocrust.edges as edges
-import gpiocrust.PinMode as PinMode
+from gpiocrust.pin_mode import PinMode
 
 _edge_to_rpi_edge = {
     edges.RISING: GPIO.RISING,
