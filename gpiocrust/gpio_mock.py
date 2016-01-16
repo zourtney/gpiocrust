@@ -3,10 +3,10 @@ A mock API for when RPi.GPIO is not available. Useful for building out
 applications while not on the Pi itself.
 """
 import gpiocrust.edges as edges
-
+from gpiocrust.pin_mode import PinMode
 
 class Header(object):
-    def __init__(self):
+    def __init__(self, mode=PinMode.BOARD):
         pass
 
     def __del__(self):
@@ -62,16 +62,13 @@ class PWMOutputPin(OutputPin):
 
 class InputPin(object):
     def __init__(self, pin,
-                 value=0, callback=None, edge=edges.BOTH, bouncetime=0):
+                 value=0, callback=None, edge=edges.BOTH, header=None, bouncetime=0):
         self._edge = edge
         self._pin = int(pin)
         self._value = value
         self._callback = callback
 
         # TODO: bouncetime  -->  self._bouncetime = bouncetime
-
-    def __del__(self):
-        pass
 
     @property
     def value(self):

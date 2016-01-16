@@ -2,6 +2,7 @@
 
 import RPi.GPIO as GPIO
 import gpiocrust.edges as edges
+from gpiocrust.pin_mode import PinMode
 
 _edge_to_rpi_edge = {
     edges.RISING: GPIO.RISING,
@@ -9,20 +10,28 @@ _edge_to_rpi_edge = {
     edges.BOTH: GPIO.BOTH,
 }
 
+_pinmode_to_rpi_mode = {
+    PinMode.BCM: GPIO.BCM,
+    PinMode.BOARD: GPIO.BOARD
+}
+
 class Header(object):
     """Controls initializing and cleaning up GPIO header."""
-
-    def __init__(self):
-        GPIO.setmode(GPIO.BOARD)
-
-    def __del__(self):
-        GPIO.cleanup()
+    
+    def __init__(self, mode=PinMode.BOARD):
+        self._pinsForCleanup = []
+        GPIO.setmode(_pinmode_to_rpi_mode[mode])
 
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
-        pass
+        for pin in self._pinsForCleanup:
+            pin.cleanup()
+        GPIO.cleanup()
+    
+    def registerPinForCleanup(self, pin):
+        self._pinsForCleanup.append(pin)
 
 
 class OutputPin(object):
@@ -84,17 +93,24 @@ class InputPin(object):
     """A single GPIO pin set for input"""
 
     def __init__(self, pin, value=0, callback=None, edge=edges.BOTH,
-                 bouncetime=0):
+                 bouncetime=0, header=None):
         self._pin = int(pin)
         self._edge = _edge_to_rpi_edge[edge]
+        self._header = header
         GPIO.setup(self._pin, GPIO.IN,
                    pull_up_down=GPIO.PUD_DOWN if value == 0 else GPIO.PUD_UP)
         GPIO.add_event_detect(self._pin, self._edge,
                               bouncetime=bouncetime)
         if callback is not None:
             GPIO.add_event_callback(self._pin, callback)
-
+        if header != None:
+            header.registerPinForCleanup(self)
+    
     def __del__(self):
+        if (self._header == None):
+            self.cleanup()
+    
+    def cleanup(self):
         GPIO.remove_event_detect(self._pin)
 
     @property
