@@ -103,11 +103,11 @@ class InputPin(object):
                               bouncetime=bouncetime)
         if callback is not None:
             GPIO.add_event_callback(self._pin, callback)
-        if header != None:
+        if header is not None:
             header.registerPinForCleanup(self)
     
     def __del__(self):
-        if (self._header == None):
+        if self._header is None:
             self.cleanup()
     
     def cleanup(self):
