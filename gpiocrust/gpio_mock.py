@@ -61,7 +61,7 @@ class PWMOutputPin(OutputPin):
 
 
 class InputPin(object):
-    def __init__(self, pin, value=0, callback=None, edge=Edges.BOTH, bouncetime=None, header=None):
+    def __init__(self, pin, value=0, callback=None, edge=edges.BOTH, bouncetime=None, header=None):
         self._edge = edge
         self._pin = int(pin)
         self._value = value
