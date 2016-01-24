@@ -92,15 +92,34 @@ class PWMOutputPin(OutputPin):
 class InputPin(object):
     """A single GPIO pin set for input"""
 
-    def __init__(self, pin, value=0, callback=None, edge=edges.BOTH,
-                 bouncetime=0, header=None):
+    def __init__(self, pin, value=0, callback=None, edge=edges.BOTH, bouncetime=None, header=None):
+        """
+
+        :param pin: GPIO pin to setup as an input.
+
+        :param value: Pull-up/down resistor value.
+
+        :type callback: callable
+        :param callback: Callback function for edge event. Must
+
+        :param edge: Edge event to detect.
+
+        :param bouncetime: Time in ms to ignore further edge events.
+
+        :type header: Header
+        :param header: Header with which to register input pin assignments, for eventual clean-up.
+        """
         self._pin = int(pin)
         self._edge = _edge_to_rpi_edge[edge]
         self._header = header
         GPIO.setup(self._pin, GPIO.IN,
                    pull_up_down=GPIO.PUD_DOWN if value == 0 else GPIO.PUD_UP)
-        GPIO.add_event_detect(self._pin, self._edge,
-                              bouncetime=bouncetime)
+
+        event_kwargs = {}
+        if bouncetime:
+            event_kwargs['bouncetime'] = bouncetime
+        GPIO.add_event_detect(gpio=self._pin, edge=self._edge, **event_kwargs)
+
         if callback is not None:
             GPIO.add_event_callback(self._pin, callback)
         if header is not None:
