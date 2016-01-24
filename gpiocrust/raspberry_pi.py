@@ -120,8 +120,9 @@ class InputPin(object):
             event_kwargs['bouncetime'] = bouncetime
         GPIO.add_event_detect(gpio=self._pin, edge=self._edge, **event_kwargs)
 
-        if callback is not None:
+        if callable(callback):
             GPIO.add_event_callback(self._pin, callback)
+
         if header is not None:
             header.registerPinForCleanup(self)
     
