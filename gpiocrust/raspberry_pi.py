@@ -123,7 +123,7 @@ class InputPin(object):
         def wrapped(pin):
             fn(self.value)
 
-        GPIO.add_event_callback(self._pin, wrapped, _edge_to_rpi_edge[edge])
+        GPIO.add_event_callback(self._pin, wrapped)
 
     def wait_for_edge(self):
         """
